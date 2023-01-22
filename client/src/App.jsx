@@ -1,30 +1,22 @@
-import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useState, useEffect } from 'react';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import NoPage from './pages/NoPage';
 import './App.css'
 
 function App() {
-  const [backendData, setBackendData] = ([{}]);
-
-  useEffect(() => {
-    fetch('/api', { })
-      .then(function(response) {
-        return response.json()
-      })
-      .then(function(data) {
-        setBackendData(data)
-      })
-  }, [])
-
   return (
-    <div className="App">
-      {console.log(backendData)}
-      {(typeof backendData !== 'undefined') ? (
-        <p>Loading...</p> )
-        : (
-          backendData.users.map((user, i) => {
-            <p key={i}>user</p>
-          })
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='login' element={<Login />} />
+          <Route path='*' element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
