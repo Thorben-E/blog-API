@@ -30,10 +30,9 @@ app.post('/api/editor', verifyToken, (req, res) => {
             res.json({
                 message: "Welcome Editor",
                 authData
-            });        
+            });
         }
     })
-    
 });
 
 app.post('/api/login', (req, res) => {
@@ -47,6 +46,17 @@ app.post('/api/login', (req, res) => {
         res.json({ token })
     });
 });
+
+app.post('/api/create', (req, res) => {
+    const post = new Post({
+        title: req.body.title,
+        message: req.body.message,
+        user: 1,
+        date: Date.now(),
+        comments: []
+    }).save()
+    res.redirect('/')
+})
 
 // Verify token
 function verifyToken(req, res, next) {

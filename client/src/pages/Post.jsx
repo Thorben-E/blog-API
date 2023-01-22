@@ -1,6 +1,6 @@
 import React from "react"
 
-const Post = (props) => {
+const Post = (postid) => {
   return (
     <div className="post">
         <h2>title</h2>

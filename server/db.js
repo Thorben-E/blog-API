@@ -13,6 +13,7 @@ const Post = mongoose.model(
     "Post",
     new Schema({
         title: { type: String, required: true },
+        message: { type: String, required: true },
         user: { type: String, required: true },
         date: { type: Date, required: true },
         comments: { type: Array, required: true }
