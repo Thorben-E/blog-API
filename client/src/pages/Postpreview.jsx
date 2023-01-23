@@ -1,18 +1,25 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 
-const Postpreview = (postid) => {
+const Postpreview = ({ title, user, date, postid, editor }) => {
+  const navigate = useNavigate()
 
   const onPostClick = () => {
-    console.log('here you go to post with postid')
+    navigate(`/post`, { state: { id: postid }}); 
+  }
+
+  const onDeleteClick = () => {
+    console.log('delete post')
   }
 
   return (
     <div className="card" style={{width: "18rem"}}>
         <div className="card-body">
-            <h2 className="card-title">Post title</h2>
-            <p className="card-subtitle">User</p>
-            <p className="card-text">date of post</p>
+            <h2 className="card-title">{title}</h2>
+            <p className="card-subtitle">{user}</p>
+            <p className="card-text">{date}</p>
             <button className="btn btn-primary" onClick={onPostClick}>View Post</button>
+            {editor && <button className="btn btn-primary ms-2" onClick={onDeleteClick}>Delete</button>}
         </div>
     </div>
   )

@@ -1,9 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
+const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors())
+
+// parse application/json
+app.use(bodyParser.json())
 
 const { User, Post, Comment } = require('./db')
 const mongoose = require('mongoose')
@@ -22,18 +30,21 @@ app.get('/api', (req, res) => {
     res.json({'users': ['userOne', 'userTwo', 'userThree']})
 });
 
-app.post('/api/editor', verifyToken, (req, res) => {
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
-        if(err) {
-            res.sendStatus(403)
+app.get('/api/posts', async (req, res) => {
+    const messages = await Post.find().sort([["date", "descending"]]).populate("user")
+    res.json(messages)
+})
+
+app.get('/api/posts/:id', (req, res) => {
+    const data = Post.findById(req.params.id, function (err, post) {
+        if (err) {
+            console.log(err)
         } else {
-            res.json({
-                message: "Welcome Editor",
-                authData
-            });
+            return post
         }
     })
-});
+    res.send(data)
+})
 
 app.post('/api/login', (req, res) => {
     const user = {
@@ -41,34 +52,17 @@ app.post('/api/login', (req, res) => {
         username: 'username',
         password: 'password'
     }
-
-    jwt.sign({ user }, 'secretkey', (err, token) => {
-        res.json({ token })
-    });
 });
 
-app.post('/api/create', (req, res) => {
-    console.log(req.body)
-    const post = new Post({
+app.post('/api/create', async (req, res) => {
+    const post = await new Post({
         title: req.body.title,
         message: req.body.message,
-        user: 1,
+        user: "codingAres",
         date: Date.now(),
         comments: []
     }).save()
-    res.redirect('/')
+    res.redirect(process.env.CLIENT_URL)
 })
-
-// Verify token
-function verifyToken(req, res, next) {
-    const bearerHeader = req.headers['authorization'];
-    if (typeof bearerHeader !== 'undefined') {
-        const bearerToken = bearerHeader.split(' ')[1]
-        req.token = bearerToken
-        next()
-    } else {
-        res.sendStatus(403)
-    }
-}
 
 app.listen(5000, () => console.log('server running on port 5000'))
