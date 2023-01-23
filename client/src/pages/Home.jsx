@@ -34,7 +34,7 @@ const Home = (props) => {
         <>
           <p>logged in</p>
           <h3>create post</h3>
-          <form action={`${import.meta.env.VITE_SERVER_URL}/api/create`} method="POST"> <label htmlFor="title" className="form-label">Title</label>
+          <form action={`${import.meta.env.VITE_SERVER_URL}/api/create-post`} method="POST"> <label htmlFor="title" className="form-label">Title</label>
             <input type="text" name="title" placeholder="Title" id="title" className="form-control" />
             <label htmlFor="message" className="form-label">Message</label>
             <textarea type="text" name="message" rows="8" placeholder="Message" id="message" className="form-control" />

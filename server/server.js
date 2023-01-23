@@ -36,25 +36,16 @@ app.get('/api/posts', async (req, res) => {
 })
 
 app.get('/api/posts/:id', (req, res) => {
-    const data = Post.findById(req.params.id, function (err, post) {
+    Post.findById(req.params.id, function (err, post) {
         if (err) {
-            console.log(err)
+            return console.log(err)
         } else {
-            return post
+            return res.json(post)
         }
     })
-    res.send(data)
 })
 
-app.post('/api/login', (req, res) => {
-    const user = {
-        id: 1,
-        username: 'username',
-        password: 'password'
-    }
-});
-
-app.post('/api/create', async (req, res) => {
+app.post('/api/create-post', async (req, res) => {
     const post = await new Post({
         title: req.body.title,
         message: req.body.message,
@@ -63,6 +54,10 @@ app.post('/api/create', async (req, res) => {
         comments: []
     }).save()
     res.redirect(process.env.CLIENT_URL)
+})
+
+app.post('/api/create-comment', (req, res) => {
+
 })
 
 app.listen(5000, () => console.log('server running on port 5000'))
