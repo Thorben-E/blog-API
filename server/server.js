@@ -57,7 +57,17 @@ app.post('/api/create-post', async (req, res) => {
 })
 
 app.post('/api/create-comment', (req, res) => {
-
+    new Comment({
+        name: req.body.name,
+        message: req.body.comment,
+        date: Date.now()
+    }).save((err, comment) => {
+        Post.updateOne(
+            {_id: req.body.postid },
+            { $push: { comments: comment.id}}    
+        )
+    })
+    res.redirect(process.env.CLIENT_URL)
 })
 
 app.listen(5000, () => console.log('server running on port 5000'))

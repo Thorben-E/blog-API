@@ -23,7 +23,7 @@ const Post = mongoose.model(
 const Comment = mongoose.model(
     "Comment",
     new Schema({
-        title: { type: String, required: true },
+        name: { type: String, required: true },
         message: { type: String, required: true},
         date: { type: Date, required: true }
     })
