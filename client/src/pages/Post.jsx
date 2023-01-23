@@ -15,10 +15,10 @@ const Post = () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setTitle(data.title)
         setMessage(data.message)
         setComments(data.comments.map((comment) => {
+          console.log(comment)
           return <Comment name={comment.name} message={comment.message} date={comment.data} />
         }))
       })

@@ -56,18 +56,25 @@ app.post('/api/create-post', async (req, res) => {
     res.redirect(process.env.CLIENT_URL)
 })
 
-app.post('/api/create-comment', (req, res) => {
-    new Comment({
-        name: req.body.name,
-        message: req.body.comment,
-        date: Date.now()
-    }).save((err, comment) => {
-        Post.updateOne(
+app.post('/api/create-comment', async (req, res) => {
+    try {
+        const comment = await new Comment({
+            name: req.body.name,
+            message: req.body.comment,
+            date: Date.now()
+        }).save()
+        const result = await Post.updateOne(
             {_id: req.body.postid },
-            { $push: { comments: comment.id}}    
-        )
-    })
-    res.redirect(process.env.CLIENT_URL)
+            { $push: { comments: comment.id}} 
+        )   
+        res.redirect(process.env.CLIENT_URL)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.post('/api/get-comment', (req, res) => {
+    
 })
 
 app.listen(5000, () => console.log('server running on port 5000'))
