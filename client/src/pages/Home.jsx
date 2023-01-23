@@ -1,11 +1,11 @@
 import React from "react"
 import { useState } from "react";
-import Post from "./Post";
+import Postpreview from "./Postpreview";
 import Login from './Login'
 
 const Home = (props) => {
   const [posts, setPosts] = useState([])
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <>
@@ -21,12 +21,12 @@ const Home = (props) => {
             <button type="submit" className="btn btn-primary mt-3">Post</button>
           </form>
           <div className="posts mt-3">
-            <Post />
+            <Postpreview />
           </div>
       </>
       ) : (
         <div>
-          <Post postid={''}/>
+          <Postpreview postid={''}/>
         </div>
       )}
       

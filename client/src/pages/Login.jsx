@@ -7,6 +7,7 @@ const Login = (props) => {
       <input className="form-control" type="text" name="username" id="username" />
       <label className="form-label" htmlFor="Password">Password</label>
       <input className="form-control" type="password" name="password" id="password" />
+      <button type="submit" className="btn btn-primary mt-3">Login</button>
     </form>
   )
 };

@@ -48,6 +48,7 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/create', (req, res) => {
+    console.log(req.body)
     const post = new Post({
         title: req.body.title,
         message: req.body.message,

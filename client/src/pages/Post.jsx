@@ -1,13 +1,17 @@
 import React from "react"
+import Comment from "./Comment";
 
 const Post = (postid) => {
   return (
-    <div className="post">
-        <h2>title</h2>
-        <p>message</p>
+    <div className="card">
+      <div className="card-body">
+        <h2 className="card-title">title</h2>
+        <p className="card-text">message</p>
         <div className="comments">
-            comments
+            <Comment />
         </div>
+      </div>
+        
     </div>
   )
 };
