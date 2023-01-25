@@ -2,7 +2,7 @@ import React from "react"
 
 const Login = (props) => {
   return (
-    <form action="/api/login" method="POST">
+    <form action={`${import.meta.env.VITE_SERVER_URL}/api/login`} method="POST">
       <label className="form-label" htmlFor="username">Username</label>
       <input className="form-control" type="text" name="username" id="username" />
       <label className="form-label" htmlFor="Password">Password</label>

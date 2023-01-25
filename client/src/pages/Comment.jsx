@@ -1,12 +1,40 @@
 import React from "react"
+import { useState } from "react";
+import { useEffect } from "react";
 
-const Comment = ({ name, message, date }) => {
+const Comment = ({ commentId, postId, editor }) => {
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        setTitle(data.title)
+        setMessage(data.message)
+        setDate(data.date)
+      })
+  }, [])
+  
+  const deleteComment = async () => {
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`, {
+      method: "DELETE",
+      body: JSON.stringify({ postid: postId }),
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    })
+    window.location.reload()
+  }
+  
   return (
-    <div className="card">
+    <div className="card mt-3">
         <div className="card-body">
-            <h3 className="card-title">{name}</h3>
-            <p className="card-subtitle">{date}</p>
-            <h3 className="card-text">{message}</h3>
+            <p className="card-text">{message}</p>
+            <p className="card-title"><b>{title}</b> at {date}</p>
+            {editor && <button className="btn btn-primary btn-sm" onClick={deleteComment}>Delete</button>}
         </div>
     </div>
   )
