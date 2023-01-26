@@ -1,33 +1,26 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { useEffect } from 'react'
 import { useState } from 'react'
+import Layout from './pages/Layout';
+import Dashboard from './pages/Dashboard';
+import Post from "./pages/Post";
+import NoPage from './pages/NoPage';
 import './App.css'
 
 function App() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  
-  const onFormSubmit = async () => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}/api/login`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username, password })
-    }).then(response => {
-      console.log(response)
-    })
-  }
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
-    <div className="container">
-      <h1 className=''>yourBlog</h1>
-      <form onSubmit={onFormSubmit}>
-        <label htmlFor="username" className="form-label">Username</label>
-        <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} id="username" className="form-control" required />
-        <label htmlFor="password" className="form-label">Password</label>
-        <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} id="password" className="form-control" required />
-        <button type="submit" className='btn btn-primary mt-2'>Login</button>
-      </form>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout loggedIn={loggedIn} />}>
+          <Route index element={<Dashboard loggedIn={loggedIn} />} />
+          <Route path='/new-post' element={<Post />} />
+          <Route path='*' element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    
   )
 }
 
