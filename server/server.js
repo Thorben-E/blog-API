@@ -33,19 +33,23 @@ app.get('/api/posts', async (req, res) => {
 })
 
 app.post('/api/login', (req, res) => {
-    const { username, password } = req.body
-    if (username !== 'admin') {
-        return res.status(400).json({ error: "User does not exist"})
-    } else {
-        if (password !== 'admin') return res.status(400).json({ error: "wrong password"})
-        const user = { id: 1, username: "admin", password: "admin" }
+    try {
+        const { username, password } = req.body
+        if (username !== 'admin') {
+            return res.json({ error: "User does not exist"})
+        } else {
+            if (password !== 'admin') return res.send({ error: "wrong password"})
+            const user = { id: 1, username: "admin", password: "admin" }
 
-        const accessToken = createTokens(user)
-        res.cookie("access-token", accessToken, {
-            maxAge: 60*60*24*30*1000,
-            httpOnly: true
-        })
-        res.json("logged in")
+            const accessToken = createTokens(user)
+            res.cookie("access-token", accessToken, {
+                maxAge: 60*60*24*30*1000,
+                httpOnly: true
+            })
+            res.json("logged in")
+        }
+    } catch (err) {
+        console.log(err)
     }
 })
 

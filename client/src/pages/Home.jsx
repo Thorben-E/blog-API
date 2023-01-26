@@ -1,20 +1,19 @@
 import React from "react"
 import { useState } from "react";
 import Postpreview from "./Postpreview";
-import Login from './Login'
 import { useEffect } from "react";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([])
   const [viewerPosts, setViewerPosts] = useState([])
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   if (loggedIn) {
     useEffect(() => {
       fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`)
         .then((response) => response.json())
         .then((data) => setPosts(data.map((post, i) => {
-          return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} editor={true} />
+          return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} />
         })))
     }, [])
   } else {
@@ -22,7 +21,7 @@ const Home = (props) => {
       fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`)
         .then((response) => response.json())
         .then((data) => setViewerPosts(data.map((post, i) => {
-          return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} editor={false} />
+          return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} />
         })))
     }, [])
   }

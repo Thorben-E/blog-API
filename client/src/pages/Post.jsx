@@ -12,7 +12,6 @@ const Post = () => {
   const { id, editor } = state
 
   useEffect(() => {
-    console.log(id)
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`)
       .then((response) => response.json())
       .then((data) => {

@@ -11,7 +11,6 @@ const Comment = ({ commentId, postId, editor }) => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setTitle(data.title)
         setMessage(data.message)
         setDate(data.date)
