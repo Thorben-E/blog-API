@@ -53,10 +53,6 @@ app.post('/api/login', (req, res) => {
     }
 })
 
-app.get('/api/authTest', validateToken, (req, res) => {
-    res.json('U are authorized')
-})
-
 app.post('/api/posts', async (req, res) => {
     const post = await new Post({
         title: req.body.title,
@@ -65,7 +61,7 @@ app.post('/api/posts', async (req, res) => {
         date: Date.now(),
         comments: []
     }).save()
-    res.redirect(process.env.CLIENT_URL)
+    res.redirect(process.env.EDITOR_CLIENT_URL)
 })
 
 app.get('/api/posts/:id', (req, res) => {
@@ -78,10 +74,22 @@ app.get('/api/posts/:id', (req, res) => {
     })
 })
 
+app.put('/api/posts/:id', async (req, res) => {
+    try {
+        const post = await Post.findByIdAndUpdate(req.params.id, {
+            title: req.body.title,
+            message: req.body.message,
+            user: req.body.user
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 app.delete('/api/posts/:id', async (req, res) => {
     try {
-        const post = await Post.findByIdAndDelete(req.params.id)
-        res.redirect(process.env.CLIENT_URL)
+        const post = await Post.findByIdAndDelete(req.params.id) 
+        res.redirect(process.env.EDITOR_CLIENT_URL)
     } catch (err) {
         console.log(err)
     }
@@ -121,7 +129,7 @@ app.delete('/api/comment/:id', async (req, res) => {
             { _id: req.body.postid }, 
             { $pull: { comments: req.params.id }
         })
-        res.redirect(process.env.CLIENT_URL)
+        res.redirect(process.env.EDITOR_CLIENT_URL)
     } catch (err) {
         console.log(err)
     }

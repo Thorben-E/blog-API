@@ -1,19 +1,19 @@
 import React from "react"
 import { useState, useEffect  } from "react";
+import Postpreview from './Postpreview'
 
 const Dashboard = ({ loggedIn }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [posts, setPosts] = useState([])
   
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}/api/authTest`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    }).then(response => response.json())
-      .then(data => console.log(data))
-    }, [])
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`)
+      .then((response) => response.json())
+      .then((data) => setPosts(data.map((post, i) => {
+        return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} />
+      })))
+  }, [])
 
   const onFormSubmit = async (e) => {
     e.preventDefault()
@@ -38,7 +38,7 @@ const Dashboard = ({ loggedIn }) => {
         <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} id="password" className="form-control" required />
         <button type="submit" className='btn btn-primary mt-2'>Login</button>
       </form></>}
-      whatup
+      {posts}
     </div>
   )
 };

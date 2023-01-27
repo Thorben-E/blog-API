@@ -6,7 +6,7 @@ const Layout = (props) => {
     return (
         <>
             <nav className="navbar navbar-light bg-light">
-                <a className="navbar-brand mx-2">yourBlog</a>
+                <a className="navbar-brand mx-2">Thorben's Blog</a>
                 <div className="mx-2" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">

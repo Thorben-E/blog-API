@@ -25,7 +25,7 @@ const Comment = ({ commentId, postId, editor }) => {
         "Content-Type": 'application/json'
       }
     })
-    window.location.reload()
+    
   }
   
   return (

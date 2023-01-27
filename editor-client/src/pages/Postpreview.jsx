@@ -1,18 +1,11 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 
-const Postpreview = ({ title, user, date, postid, editor }) => {
+const Postpreview = ({ title, user, date, postid }) => {
   const navigate = useNavigate()
 
   const onPostClick = () => {
-    navigate(`/post`, { state: { id: postid, editor: editor }}); 
-  }
-
-  const onDeleteClick = async () => {
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${postid}`, {
-      method: "DELETE"
-    })
-    window.location.reload()
+    navigate(`/post`, { state: { id: postid }}); 
   }
 
   return (
@@ -21,8 +14,7 @@ const Postpreview = ({ title, user, date, postid, editor }) => {
             <h2 className="card-title">{title}</h2>
             <p className="card-subtitle">{user}</p>
             <p className="card-text">{date}</p>
-            <button className="btn btn-primary" onClick={onPostClick}>View Post</button>
-            {editor && <button className="btn btn-primary mx-1" onClick={onDeleteClick}>Delete</button>}
+            <button className="btn btn-primary" onClick={onPostClick}>Edit</button>
         </div>
     </div>
   )

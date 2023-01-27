@@ -33,7 +33,7 @@ const Comment = ({ commentId, postId, editor }) => {
         <div className="card-body">
             <p className="card-text">{message}</p>
             <p className="card-title"><b>{title}</b> at {date}</p>
-            {editor && <button className="btn btn-primary btn-sm" onClick={deleteComment}>Delete</button>}
+            <button className="btn btn-primary btn-sm" onClick={deleteComment}>Delete</button>
         </div>
     </div>
   )
