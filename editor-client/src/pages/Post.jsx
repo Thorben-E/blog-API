@@ -9,10 +9,11 @@ const Post = () => {
   const [message, setMessage] = useState('')
   const [author, setAuthor] = useState('')
   const [comments, setComments] = useState([])
+  const [popup, setPopup] = useState('')
   const { state } = useLocation();
   const { id } = state
 
-  useEffect(() => {
+  const getPostData = () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
       method: 'GET'
     })
@@ -25,26 +26,32 @@ const Post = () => {
           return <Comment key={i} commentId={comment} postId={id} />
         }))
       })
+  }
+
+  useEffect(() => {
+    getPostData() 
   }, [])
 
   const updatePost = async () => {
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
       method: "PUT",
       body: JSON.stringify({ title: title, message: message, author: author }),
       headers: {
         "Content-Type": 'application/json'
       }
-    })
+    }).then(response => response.json())
+      .then(window.location.reload())
   } 
 
-  const deletePost = () => {
+  const deletePost = async () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
       method: 'DELETE'
-    }) 
+    }).then(response => response.json())
+      .then(data => console.log(data))
+      .then(window.location.href = import.meta.env.VITE_EDITOR_CLIENT_URL)
   }
   
   return (
-    <div className="container">
       <div className="card">
         <div className="card-body">
           <label htmlFor="title" className="form-label">Title</label>
@@ -60,7 +67,6 @@ const Post = () => {
             {comments}
           </div>
         </div>
-    </div>
     </div>
     
   )

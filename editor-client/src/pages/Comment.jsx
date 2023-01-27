@@ -6,8 +6,8 @@ const Comment = ({ commentId, postId, editor }) => {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [date, setDate] = useState('');
-
-  useEffect(() => {
+  
+  const getCommentData = () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -15,17 +15,20 @@ const Comment = ({ commentId, postId, editor }) => {
         setMessage(data.message)
         setDate(data.date)
       })
+  }
+
+  useEffect(() => {
+    getCommentData() 
   }, [])
   
   const deleteComment = async () => {
-    await fetch(`${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`, {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`, {
       method: "DELETE",
       body: JSON.stringify({ postid: postId }),
       headers: {
         "Content-Type": 'application/json'
       }
-    })
-    window.location.reload()
+    }).then(window.location.reload())
   }
   
   return (

@@ -9,13 +9,13 @@ import NoPage from './pages/NoPage';
 import './App.css'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout loggedIn={loggedIn} />}>
-          <Route index element={<Dashboard loggedIn={loggedIn} />} />
+        <Route path='/' element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}>
+          <Route index element={<Dashboard loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
           <Route path='/post' element={<Post />} />
           <Route path='/new-post' element={<NewPost />} />
           <Route path='*' element={<NoPage />} />

@@ -15,7 +15,7 @@ const Home = (props) => {
   }, [])
   
   return (
-    <div className="container">
+    <div className="container mt-2 d-flex justify-content-center">
       {posts}
     </div>
   )

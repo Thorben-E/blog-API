@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, Outlet } from "react-router-dom";
 
-const Layout = ({ loggedIn }) => {
+const Layout = ({ loggedIn, setLoggedIn }) => {
     const onNavClick = () => {
         let x = document.getElementById("navbarNav");
         if (x.style.display === "none") {
@@ -30,7 +30,7 @@ const Layout = ({ loggedIn }) => {
                     </ul>
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <button className="btn btn-danger">Log out</button>
+                            <button className="btn btn-danger" onClick={() => setLoggedIn(false)}>Log out</button>
                         </li>
                     </ul>
                 </div></>}

@@ -10,7 +10,7 @@ const app = express()
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors({credentials: true, origin: [`${process.env.EDITOR_CLIENT_URL}`, `${process.env.CLIENT_URL}`]}))
 app.use(express.json())
 app.use(cookieParser())
 
@@ -44,7 +44,8 @@ app.post('/api/login', (req, res) => {
             const accessToken = createTokens(user)
             res.cookie("access-token", accessToken, {
                 maxAge: 60*60*24*30*1000,
-                httpOnly: true
+                httpOnly: true,
+                secure: false
             })
             res.json("logged in")
         }
@@ -54,14 +55,19 @@ app.post('/api/login', (req, res) => {
 })
 
 app.post('/api/posts', async (req, res) => {
-    const post = await new Post({
-        title: req.body.title,
-        message: req.body.message,
-        user: "codingAres",
-        date: Date.now(),
-        comments: []
-    }).save()
-    res.redirect(process.env.EDITOR_CLIENT_URL)
+    try {
+        const post = await new Post({
+            title: req.body.title,
+            message: req.body.message,
+            user: "codingAres",
+            date: Date.now(),
+            comments: []
+        }).save()
+        res.json({ message: 'Post created'})
+    } catch (err) {
+        res.json({ message: 'Posting post failed, try again', error: err })
+    }
+    
 })
 
 app.get('/api/posts/:id', (req, res) => {
@@ -79,19 +85,20 @@ app.put('/api/posts/:id', async (req, res) => {
         const post = await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
             message: req.body.message,
-            user: req.body.user
+            user: req.body.author
         })
+        res.json({ message: 'Post updated'})
     } catch (err) {
-        console.log(err)
+        res.json({ message: 'Updating post failed, try again'})
     }
 })
 
 app.delete('/api/posts/:id', async (req, res) => {
     try {
         const post = await Post.findByIdAndDelete(req.params.id) 
-        res.redirect(process.env.EDITOR_CLIENT_URL)
+        res.json({ message: 'Post deleted'})
     } catch (err) {
-        console.log(err)
+        res.json({ message: 'Deleting post failed, try again'})
     }
 })
 
@@ -115,7 +122,7 @@ app.post('/api/comment', async (req, res) => {
         const result = await Post.updateOne(
             {_id: req.body.postid },
             { $push: { comments: comment.id}} 
-        )   
+        )
         res.redirect(process.env.CLIENT_URL)
     } catch (err) {
         console.log(err)
@@ -129,7 +136,6 @@ app.delete('/api/comment/:id', async (req, res) => {
             { _id: req.body.postid }, 
             { $pull: { comments: req.params.id }
         })
-        res.redirect(process.env.EDITOR_CLIENT_URL)
     } catch (err) {
         console.log(err)
     }

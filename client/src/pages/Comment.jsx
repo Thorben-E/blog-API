@@ -24,8 +24,7 @@ const Comment = ({ commentId, postId, editor }) => {
       headers: {
         "Content-Type": 'application/json'
       }
-    })
-    
+    }) 
   }
   
   return (
