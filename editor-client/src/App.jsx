@@ -11,6 +11,19 @@ import './App.css'
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
 
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/checkAuth`, {
+      method: 'POST',
+      credentials: "include",
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+        if (data.auth === true) {
+          setLoggedIn(true)
+        }
+      })
+  }, [])
+
   return (
     <BrowserRouter>
       <Routes>

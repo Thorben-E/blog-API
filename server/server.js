@@ -27,6 +27,10 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Mongo connection error"));
 db.on("open", console.log.bind(console, "Mongo connection opened"));
 
+app.post('/api/checkAuth', validateToken, (req, res) => {
+    res.json({ auth: true })
+})
+
 app.get('/api/posts', async (req, res) => {
     const messages = await Post.find().sort([["date", "descending"]]).populate("user")
     res.json(messages)
@@ -52,6 +56,14 @@ app.post('/api/login', (req, res) => {
     } catch (err) {
         console.log(err)
     }
+})
+
+app.post('/api/logout', (req, res) => {
+    res.cookie('access-token', 'none', {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
+    res.status(200).json({ success: true, message: 'User logged out'})
 })
 
 app.post('/api/posts', async (req, res) => {

@@ -9,8 +9,14 @@ const Layout = ({ loggedIn, setLoggedIn }) => {
         } else {
           x.style.display = "none";
         }
-}
-    
+    }
+
+    const onLogoutClick = async () => {
+        await fetch(`${import.meta.env.VITE_SERVER_URL}/api/logout`, {
+            method: 'POST'
+        }) 
+        setLoggedIn(false)
+    }
 
     return (
         <>
@@ -30,7 +36,7 @@ const Layout = ({ loggedIn, setLoggedIn }) => {
                     </ul>
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <button className="btn btn-danger" onClick={() => setLoggedIn(false)}>Log out</button>
+                            <button className="btn btn-danger" onClick={onLogoutClick}>Log out</button>
                         </li>
                     </ul>
                 </div></>}

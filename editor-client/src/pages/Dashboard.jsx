@@ -8,13 +8,6 @@ const Dashboard = ({ loggedIn, setLoggedIn }) => {
   const [posts, setPosts] = useState([])
   
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}/api/checkCookie`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => response.json())
-      .then(data => console.log(data))
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`)
       .then((response) => response.json())
       .then((data) => setPosts(data.map((post, i) => {
