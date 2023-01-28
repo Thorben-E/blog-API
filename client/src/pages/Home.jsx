@@ -7,7 +7,10 @@ const Home = (props) => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`)
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`, {
+      method: 'GET',
+      mode: "no-cors"
+    })
       .then((response) => response.json())
       .then((data) => setPosts(data.map((post, i) => {
         return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} />
