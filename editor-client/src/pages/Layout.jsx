@@ -11,10 +11,12 @@ const Layout = ({ loggedIn, setLoggedIn }) => {
         }
     }
 
-    const onLogoutClick = async () => {
-        await fetch(`${import.meta.env.VITE_SERVER_URL}/api/logout`, {
-            method: 'POST'
-        }) 
+    const onLogoutClick = () => {
+        fetch(`${import.meta.env.VITE_SERVER_URL}/api/logout`, {
+            method: 'POST',
+            credentials: "include"
+        }).then(response => response.json())
+          .then(data => console.log(data)) 
         setLoggedIn(false)
     }
 
