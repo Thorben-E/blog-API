@@ -1,3 +1,4 @@
+const { createTokens } = require('../jwt')
 exports.authCheck = (req, res) => {
     res.json({ auth: true })
 }

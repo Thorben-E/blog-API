@@ -1,12 +1,13 @@
 const express = require("express");
+const { validateToken } = require("./jwt")
 const auth_controller = require('../controllers/authController')
 const post_controller = require('../controllers/postController')
 const comment_controller = require('../controllers/commentController')
 const router = express.Router()
 
-router.get('/', (req, res) => res.json({ message: 'Server is online'}))
+router.get('/', validateToken, (req, res) => res.json({ message: 'Server is online'}))
 
-router.post('/api/checkAuth', auth_controller.authCheck)
+router.post('/api/checkAuth', validateToken, auth_controller.authCheck)
 
 router.post('/api/login', auth_controller.login)
 

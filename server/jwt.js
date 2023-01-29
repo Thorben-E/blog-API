@@ -13,7 +13,7 @@ const validateToken = (req, res, next) => {
     const accessToken = req.cookies["access-token"]
     console.log(accessToken)
     
-    if (!accessToken) return res.status(400).json({ error: "user not authenticated"})
+    if (!accessToken) return res.status(400).json({ error: "User doesn't have a auth cookie"})
 
     try {
         const validToken = verify(accessToken, process.env.SECRET_KEY)
