@@ -30,5 +30,6 @@ const apiRouter = require('./routes/api')
 app.use('/', apiRouter)
 
 const PORT = process.env.PORT && 5000
+console.log(PORT)
 
 app.listen(PORT, () => console.log(`server running on ${PORT}`))
