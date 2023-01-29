@@ -9,7 +9,6 @@ const Home = (props) => {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`, {
       method: 'GET',
-      mode: "no-cors"
     })
       .then((response) => response.json())
       .then((data) => setPosts(data.map((post, i) => {
