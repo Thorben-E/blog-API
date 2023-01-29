@@ -1,8 +1,12 @@
 const { Post } = require('../db')
 
-exports.get_posts = async (req, res) => {
-    const messages = await Post.find().sort([["date", "descending"]]).populate("user")
-    res.json(messages)
+exports.get_posts = async (req, res, next) => {
+    try {
+        const messages = await Post.find().sort([["date", "descending"]]).populate("user")
+        res.json(messages)
+    } catch (err) {
+        next(err)
+    }
 }
 
 exports.post_posts = async (req, res) => {
@@ -18,7 +22,6 @@ exports.post_posts = async (req, res) => {
     } catch (err) {
         res.json({ message: 'Posting post failed, try again', error: err })
     }
-    
 }
 
 exports.get_posts_id = (req, res) => {
