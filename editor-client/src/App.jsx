@@ -22,7 +22,6 @@ function App() {
         body: JSON.stringify({ token: localStorage.getItem('token') })
       }).then(response => response.json())
         .then(data => {
-          console.log(data)
           if (data.auth === true) {
             setLoggedIn(true)
           }

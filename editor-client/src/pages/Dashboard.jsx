@@ -27,7 +27,6 @@ const Dashboard = ({ loggedIn, setLoggedIn }) => {
     }).then(response => response.json())
       .then(data => {
         if (typeof data === 'object') {
-          console.log(`set token: ${data[0]}`)
           localStorage.setItem('token', data[0])
           setLoggedIn(true)
         }
