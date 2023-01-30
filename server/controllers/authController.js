@@ -13,12 +13,8 @@ exports.login = (req, res) => {
             const user = { id: 1, username: "admin", password: "admin" }
 
             const accessToken = createTokens(user)
-            res.cookie("access-token", accessToken, {
-                maxAge: 60*60*24*30*1000,
-                httpOnly: true,
-                secure: false
-            })
-            res.json("logged in")
+            
+            res.json([accessToken])
         }
     } catch (err) {
         console.log(err)

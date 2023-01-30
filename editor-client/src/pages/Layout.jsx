@@ -16,7 +16,8 @@ const Layout = ({ loggedIn, setLoggedIn }) => {
             method: 'POST',
             credentials: "include"
         }).then(response => response.json())
-          .then(data => console.log(data)) 
+          .then(data => console.log(data))
+        localStorage.clear()
         setLoggedIn(false)
     }
 
