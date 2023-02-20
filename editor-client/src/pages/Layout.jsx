@@ -1,7 +1,8 @@
 import React from "react"
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 
 const Layout = ({ loggedIn, setLoggedIn }) => {
+    const navigate = useNavigate()
     const onNavClick = () => {
         let x = document.getElementById("navbarNav");
         if (x.style.display === "none") {
@@ -17,6 +18,7 @@ const Layout = ({ loggedIn, setLoggedIn }) => {
             credentials: "include"
         }).then(response => response.json())
           .then(data => console.log(data))
+        navigate('/')
         localStorage.clear()
         setLoggedIn(false)
     }
