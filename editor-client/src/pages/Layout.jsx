@@ -23,26 +23,24 @@ const Layout = ({ loggedIn, setLoggedIn }) => {
         setLoggedIn(false)
     }
 
-    return (
-        <>
-            <nav className="">
-                <a className="">Thorben's Blog</a>
-                {loggedIn && <>
-                <div className="" id="navbarNav">
-                    <ul className="">
-                        <li className="">
-                            <Link className="" to='/'>Dashboard</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="" to='/new-post'>New post</Link>
-                        </li>
-                        <li className="">
-                            <button className="" onClick={onLogoutClick}>Log out</button>
-                        </li>
-                    </ul>
-                </div></>}
-            </nav>
-            <Outlet />
+    return (<>
+        <nav className="min-h-[10vh] flex px-5 items-center justify-center">
+            {!loggedIn && <h1 className="">Thorben's Blog</h1>}
+            {loggedIn && <>
+                <ul className="flex flex-row gap-3">
+                    <li className="border p-2 rounded">
+                        <Link className="" to='/'>Dashboard</Link>
+                    </li>
+                    <li className="border p-2 rounded">
+                        <Link className="" to='/new-post'>New post</Link>
+                    </li>
+                    <li className="border p-2 rounded bg-red-500 text-white">
+                        <button className="" onClick={onLogoutClick}>Log out</button>
+                    </li>
+                </ul>
+            </>}
+        </nav>
+        <Outlet />
     </>
   )
 };

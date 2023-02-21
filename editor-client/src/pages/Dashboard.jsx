@@ -34,17 +34,18 @@ const Dashboard = ({ loggedIn, setLoggedIn }) => {
   }
 
   return (
-    <main className="">
+    <main className="container flex min-h-[90vh] justify-center">
       {!loggedIn && <>
-      <p>Please log in to create, edit and delete your blog data</p>
-      <form onSubmit={(e) => onFormSubmit(e)}>
-        <label htmlFor="username" className="">Username</label>
-        <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} id="username" className="" required />
-        <label htmlFor="password" className="">Password</label>
-        <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} id="password" className="" required />
-        <button type="submit" className=''>Login</button>
-      </form></>}
-      {loggedIn && <section className="">
+        <form onSubmit={(e) => onFormSubmit(e)} className="flex flex-col gap-2 border p-5 rounded h-fit mt-[20vh]">
+          <label htmlFor="username" className="">Username</label>
+          <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} id="username" className="border border-black rounded px-2 py-1" required />
+          <label htmlFor="password" className="">Password</label>
+          <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} id="password" className="border border-black rounded px-2 py-1" required />
+          <button type="submit" className='bg-zinc-700 hover:bg-zinc-800 rounded text-white p-1'>Login</button>
+        </form>
+      </>}
+      {loggedIn && <section className="flex flex-col gap-2 mt-2">
+      <h1 className="text-xl text-center">Welcome back editor!</h1>
         {posts}
       </section>}
     </main>
