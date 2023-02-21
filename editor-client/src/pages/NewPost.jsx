@@ -57,16 +57,16 @@ const NewPost = (props) => {
             onChange={fileChange}
           />
           <br></br> 
-          <label htmlFor="title" className="form-label">Title</label>
+          <label htmlFor="title" className="">Title</label>
           <input 
             type="text" 
             name="title" 
             onChange={(e) => setTitle(e.target.value)} 
             placeholder="Title" 
             id="title" 
-            className="form-control" 
+            className="" 
           />
-          <label htmlFor="message" className="form-label">Message</label>
+          <label htmlFor="message" className="">Message</label>
           <textarea 
             type="text"  
             name="message" 
@@ -74,9 +74,9 @@ const NewPost = (props) => {
             rows="8" 
             placeholder="Message" 
             id="message" 
-            className="form-control" 
+            className="" 
           />
-          <button type="submit" className="btn btn-primary mt-3">Post</button>
+          <button type="submit" className="">Post</button>
         </form>
     </div>
   )

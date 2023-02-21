@@ -25,29 +25,23 @@ const Layout = ({ loggedIn, setLoggedIn }) => {
 
     return (
         <>
-            <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                <a className="navbar-brand mx-2">Thorben's Blog</a>
-                {loggedIn && <><button className="navbar-toggler mx-2" onClick={onNavClick} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="mx-2 collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <Link className="nav-link" to='/'>Dashboard</Link>
+            <nav className="">
+                <a className="">Thorben's Blog</a>
+                {loggedIn && <>
+                <div className="" id="navbarNav">
+                    <ul className="">
+                        <li className="">
+                            <Link className="" to='/'>Dashboard</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to='/new-post'>New post</Link>
+                            <Link className="" to='/new-post'>New post</Link>
                         </li>
-                    </ul>
-                    <ul className="navbar-nav ms-auto">
-                        <li className="nav-item">
-                            <button className="btn btn-danger" onClick={onLogoutClick}>Log out</button>
+                        <li className="">
+                            <button className="" onClick={onLogoutClick}>Log out</button>
                         </li>
                     </ul>
                 </div></>}
-                
             </nav>
-            
             <Outlet />
     </>
   )

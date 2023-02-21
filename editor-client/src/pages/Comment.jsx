@@ -32,11 +32,11 @@ const Comment = ({ commentId, postId, editor }) => {
   }
   
   return (
-    <div className="card mt-3">
-        <div className="card-body">
-            <p className="card-text">{message}</p>
-            <p className="card-title"><b>{title}</b> at {date}</p>
-            <button className="btn btn-primary btn-sm" onClick={deleteComment}>Delete</button>
+    <div className="">
+        <div className="">
+            <p className="">{message}</p>
+            <p className=""><b>{title}</b> at {date}</p>
+            <button className="" onClick={deleteComment}>Delete</button>
         </div>
     </div>
   )

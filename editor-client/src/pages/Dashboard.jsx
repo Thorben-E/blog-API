@@ -34,20 +34,20 @@ const Dashboard = ({ loggedIn, setLoggedIn }) => {
   }
 
   return (
-    <div className="container-md mt-2 d-flex justify-content-center">
-      {!loggedIn && <><h1 className=''></h1>
+    <main className="">
+      {!loggedIn && <>
+      <p>Please log in to create, edit and delete your blog data</p>
       <form onSubmit={(e) => onFormSubmit(e)}>
-        <label htmlFor="username" className="form-label">Username</label>
-        <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} id="username" className="form-control" required />
-        <label htmlFor="password" className="form-label">Password</label>
-        <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} id="password" className="form-control" required />
-        <button type="submit" className='btn btn-primary mt-2'>Login</button>
+        <label htmlFor="username" className="">Username</label>
+        <input type="text" name="username" onChange={(e) => setUsername(e.target.value)} id="username" className="" required />
+        <label htmlFor="password" className="">Password</label>
+        <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} id="password" className="" required />
+        <button type="submit" className=''>Login</button>
       </form></>}
-      {loggedIn && <div className="row d-flex justify-content-center">
+      {loggedIn && <section className="">
         {posts}
-      </div>}
-      
-    </div>
+      </section>}
+    </main>
   )
 };
 
