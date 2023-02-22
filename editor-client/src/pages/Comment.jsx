@@ -33,10 +33,10 @@ const Comment = ({ commentId, postId, editor }) => {
   
   return (
     <div className="">
-        <div className="">
+        <div className="border p-4 rounded">
             <p className="">{message}</p>
-            <p className=""><b>{title}</b> at {date}</p>
-            <button className="" onClick={deleteComment}>Delete</button>
+            <p className=""><b>{title}</b> at {date.split("T")[0]}</p>
+            <button className="bg-zinc-700 hover:bg-zinc-800 text-white px-2 py-1 rounded mt-2" onClick={deleteComment}>Delete</button>
         </div>
     </div>
   )
