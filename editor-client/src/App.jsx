@@ -31,15 +31,15 @@ function App() {
   }, [])
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}>
+    <BrowserRouter> 
+        <Routes>
+          <Route path='/' element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}>
           <Route index element={<Dashboard loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
           <Route path='/post' element={<Post />} />
           <Route path='/new-post' element={<NewPost />} />
           <Route path='*' element={<NoPage />} />
-        </Route>
-      </Routes>
+          </Route>
+        </Routes>
     </BrowserRouter>
     
   )

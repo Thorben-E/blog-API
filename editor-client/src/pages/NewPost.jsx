@@ -5,8 +5,9 @@ import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
 const NewPost = (props) => {
   const [title, setTitle] = useState('')
   const [message, setMessage] = useState('')
-  const [img, setImg] = useState('')
-  const [fileError, setFileError] = useState('')
+  const [img, setImg] = useState()
+
+  const urlEndpoint = 'https://ik.imagekit.io/hqpb7y53n'
 
   const onFormSubmit = (e) => {
     if (fileError) {
@@ -25,40 +26,35 @@ const NewPost = (props) => {
       }
   }
 
-  const fileChange = e => {
-    if(e.target.files.length < 1){
-      return;
-    }
-    const file = e.target.files[0];
-    switch(file.type){
-      case 'image/png':
-        //('image type is png');
-        setImg(file)
-        break;
-      case 'image/jpg':
-        //('image/jpg')
-        setImg(file)
-        break;
-      case 'image/jpeg':
-        //('image is jpeg')
-        setImg(file)
-        break;
-      default:
-        setFileError('image must be png, jpg or jpeg type')
-    }
-  }
+  const onError = err => {
+    console.log("Error", err);
+  };
+
+  const onSuccess = res => {
+    console.log("Success", res);
+    setImg(res.url)
+  };
 
   return (
     <main className="flex flex-col gap-2 items-center">
         <h3 className="text-xl text-center mt-2">create post</h3>
-        <p className="fileError">{fileError}</p>
         <form 
           onSubmit={(e) => onFormSubmit(e)}
           className="flex border flex-col w-[600px] max-w-[80vw] p-4 rounded">
-          <input
-            type="file"
-            onChange={fileChange}
-          />
+          <div className="flex flex-row">
+            {img && <img src={img} alt="img cannot load" className="w-[50%]" />}
+            <IKContext
+              urlEndpoint={urlEndpoint} 
+              publicKey={import.meta.env.VITE_imagekit_public_key} 
+              authenticationEndpoint={import.meta.env.VITE_imagekit_auth_endpoint}
+            >
+              <IKUpload
+                fileName="test-upload.png"
+                onError={onError}
+                onSuccess={onSuccess}
+              />
+            </IKContext>
+          </div>
           <br></br> 
           <label 
             htmlFor="title" 
