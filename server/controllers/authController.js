@@ -1,6 +1,19 @@
 const { createTokens } = require('../jwt')
+const imageKit = require('imagekit')
+
+const imagekit = new imageKit({
+    urlEndpoint: 'https://ik.imagekit.io/hqpb7y53n',
+    publicKey: process.env.imagekit_public_key,
+    privateKey: process.env.imagekit_private_key
+})
+
 exports.authCheck = (req, res) => {
     res.json({ auth: true })
+}
+
+exports.IKauth = (req, res) => {
+  var result = imagekit.getAuthenticationParameters();
+  res.send(result);
 }
 
 exports.login = (req, res) => {

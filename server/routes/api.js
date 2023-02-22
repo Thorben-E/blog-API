@@ -7,6 +7,8 @@ const router = express.Router()
 
 router.get('/', validateToken, (req, res) => res.json({ message: 'Server is online'}))
 
+router.get('/IKauth', auth_controller.IKauth)
+
 router.post('/api/checkAuth', validateToken, auth_controller.authCheck)
 
 router.post('/api/login', auth_controller.login)

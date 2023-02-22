@@ -1,5 +1,6 @@
 import React from "react"
 import { useState } from "react";
+import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
 
 const NewPost = (props) => {
   const [title, setTitle] = useState('')
