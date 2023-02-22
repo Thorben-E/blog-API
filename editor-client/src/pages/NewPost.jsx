@@ -10,20 +10,16 @@ const NewPost = (props) => {
   const urlEndpoint = 'https://ik.imagekit.io/hqpb7y53n'
 
   const onFormSubmit = (e) => {
-    if (fileError) {
-      return
-    } else {
-      e.preventDefault()
-      fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`, {
-        method: 'POST',
-        body: JSON.stringify({ title: title, message: message, img: img }),
-        headers: {
-          "Content-Type": 'application/json'
-        }
-      }).then(response => response.json())
-        .then(data => console.log(data))
-        .then(window.location.href = import.meta.env.VITE_EDITOR_CLIENT_URL)
+    e.preventDefault()
+    fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`, {
+      method: 'POST',
+      body: JSON.stringify({ title: title, message: message, img: img }),
+      headers: {
+        "Content-Type": 'application/json'
       }
+    }).then(response => response.json())
+      .then(data => console.log(data))
+      .then(window.location.href = import.meta.env.VITE_EDITOR_CLIENT_URL)
   }
 
   const onError = err => {

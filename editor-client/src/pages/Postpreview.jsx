@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 
-const Postpreview = ({ title, user, date, postid }) => {
+const Postpreview = ({ title, user, img, date, postid }) => {
   const navigate = useNavigate()
 
   const onPostClick = () => {
@@ -11,7 +11,7 @@ const Postpreview = ({ title, user, date, postid }) => {
   return (
     <article className="flex border rounded w-[600px] max-w-[80vw]">
         <div className="w-[50%] bg-slate-200 flex items-center justify-center">
-          (img)
+          <img src={img} alt="Cannot load img" className="w-[60%]" />
         </div>
         <div className="p-3 flex flex-col gap-1 w-[50%]">
             <h2 className="text-lg">{title}</h2>

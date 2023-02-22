@@ -11,7 +11,7 @@ const Dashboard = ({ loggedIn, setLoggedIn }) => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`)
       .then((response) => response.json())
       .then((data) => setPosts(data.map((post, i) => {
-        return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} />
+        return <Postpreview key={i} title={post.title} user={post.user} img={post.img} date={post.date} postid={post._id} />
       })))
   }, [])
 

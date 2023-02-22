@@ -2,9 +2,11 @@ import React from "react"
 import { useEffect } from "react";
 import { useState } from "react";
 import { redirect, useLocation } from "react-router-dom";
+import { IKContext, IKUpload } from 'imagekitio-react';
 import Comment from "./Comment";
 
 const Post = () => {
+  const [img, setImg] = useState()
   const [title, setTitle] = useState('')
   const [message, setMessage] = useState('')
   const [author, setAuthor] = useState('')
@@ -13,12 +15,15 @@ const Post = () => {
   const { state } = useLocation();
   const { id } = state
 
+  const urlEndpoint = 'https://ik.imagekit.io/hqpb7y53n'
+
   const getPostData = () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
       method: 'GET'
     })
       .then((response) => response.json())
       .then((data) => {
+        setImg(data.img)
         setTitle(data.title)
         setMessage(data.message)
         setAuthor(data.user)
@@ -32,10 +37,19 @@ const Post = () => {
     getPostData() 
   }, [])
 
+  const onError = err => {
+    console.log("Error", err);
+  };
+
+  const onSuccess = res => {
+    console.log("Success", res);
+    setImg(res.url)
+  };
+
   const updatePost = async () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
       method: "PUT",
-      body: JSON.stringify({ title: title, message: message, author: author }),
+      body: JSON.stringify({ img: img, title: title, message: message, author: author }),
       headers: {
         "Content-Type": 'application/json'
       }
@@ -55,10 +69,18 @@ const Post = () => {
     <main className="flex justify-center">
       <article className="flex flex-col border p-4 rounded gap-2 w-[600px] max-w-[60vw] mt-2">
         <div className="flex flex-row">
-          <div className="w-[50%] bg-slate-200 rounded h-[100px] flex justify-center items-center">img</div>
-          <div>
-            <input type="file" name="updatefile" id="updatefile" />
-          </div>
+          <img src={img} alt="" className="w-[50%]"/>
+          <IKContext
+              urlEndpoint={urlEndpoint} 
+              publicKey={import.meta.env.VITE_imagekit_public_key} 
+              authenticationEndpoint={import.meta.env.VITE_imagekit_auth_endpoint}
+            >
+              <IKUpload
+                fileName="test-upload.png"
+                onError={onError}
+                onSuccess={onSuccess}
+              />
+            </IKContext>
         </div>
         <label htmlFor="title" className="">Title</label>
         <input type="text" name="title" id="title" onChange={(e) => setTitle(e.target.value)} value={title} className="border border-black rounded px-2 py-1" />

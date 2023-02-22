@@ -14,6 +14,7 @@ exports.post_posts = async (req, res) => {
         const post = await new Post({
             title: req.body.title,
             message: req.body.message,
+            img: req.body.img,
             user: "codingAres",
             date: Date.now(),
             comments: []
@@ -37,6 +38,7 @@ exports.get_posts_id = (req, res) => {
 exports.put_posts_id = async (req, res) => {
     try {
         const post = await Post.findByIdAndUpdate(req.params.id, {
+            img: req.body.img,
             title: req.body.title,
             message: req.body.message,
             user: req.body.author

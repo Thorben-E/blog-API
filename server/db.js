@@ -14,8 +14,9 @@ const Post = mongoose.model(
     new Schema({
         title: { type: String, required: true },
         message: { type: String, required: true },
-        img: { data: Buffer, contentType: String },
+        img: { type: String },
         user: { type: String, required: true },
+        date: { type: Date, required: true },
         comments: { type: Array, required: true }
     })
 )
