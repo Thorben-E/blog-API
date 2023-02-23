@@ -28,12 +28,9 @@ const Comment = ({ commentId, postId, editor }) => {
   }
   
   return (
-    <div className="card mt-3">
-        <div className="card-body">
-            <p className="card-text">{message}</p>
-            <p className="card-title"><b>{title}</b> at {date}</p>
-            {editor && <button className="btn btn-primary btn-sm" onClick={deleteComment}>Delete</button>}
-        </div>
+    <div className="w-[80%] border rounded p-4">
+        <p className=""><b>{title}</b> at {date}</p>
+        <p className="">{message}</p>
     </div>
   )
 };

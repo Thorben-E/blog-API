@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 
-const Postpreview = ({ title, user, date, postid, editor }) => {
+const Postpreview = ({ img, title, user, date, postid, editor }) => {
   const navigate = useNavigate()
 
   const onPostClick = () => {
@@ -16,16 +16,15 @@ const Postpreview = ({ title, user, date, postid, editor }) => {
   }
 
   return (
-    <div className="card col-lg" style={{width: "18rem"}}>
-        <div className="card-body">
-            <h2 className="card-title">{title}</h2>
-            <p className="card-subtitle">{user}</p>
-            <p className="card-text">{date}</p>
-            <button className="btn btn-primary" onClick={onPostClick}>View Post</button>
-            {editor && <button className="btn btn-primary mx-1" onClick={onDeleteClick}>Delete</button>}
-        </div>
-    </div>
+    <article className="w-[800px] max-w-[80vw] flex flex-row gap-2 border p-4 rounded">
+      <img src={img} alt="" className="w-[50%]"/>
+      <div className="">
+          <h2 className="text-lg">{title}</h2>
+          <p className="text-sm">Written by <b>{user}</b> on <b>{date.split("T")[0]}</b></p>
+          <button className="bg-zinc-700 hover:bg-zinc-800 text-white px-2 py-1 rounded mt-2" onClick={onPostClick}>View Post</button>
+      </div>
+    </article>
   )
 };
 
-export default Postpreview;
+export default Postpreview

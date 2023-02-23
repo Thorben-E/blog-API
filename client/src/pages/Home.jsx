@@ -12,14 +12,14 @@ const Home = (props) => {
     })
       .then((response) => response.json())
       .then((data) => setPosts(data.map((post, i) => {
-        return <Postpreview key={i} title={post.title} user={post.user} date={post.date} postid={post._id} />
+        return <Postpreview key={i} img={post.img} title={post.title} user={post.user} date={post.date} postid={post._id} />
       })))
   }, [])
   
   return (
-    <div className="container mt-2 d-flex justify-content-center">
+    <main className=" flex flex-col gap-4 items-center">
       {posts}
-    </div>
+    </main>
   )
 };
 
