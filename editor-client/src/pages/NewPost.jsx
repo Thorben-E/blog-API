@@ -13,7 +13,7 @@ const NewPost = (props) => {
     e.preventDefault()
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts`, {
       method: 'POST',
-      body: JSON.stringify({ title: title, message: message, img: img }),
+      body: JSON.stringify({ title: title, message: message, img: img, token: localStorage.getItem('token') }),
       headers: {
         "Content-Type": 'application/json'
       }

@@ -12,7 +12,7 @@ const createTokens = (user) => {
 const validateToken = (req, res, next) => {
     let accessToken = req.body.token
     
-    if (!accessToken) return res.status(400).json({ error: "User doesn't have a auth cookie"})
+    if (!accessToken) return res.status(400).json({ auth: false})
 
     try {
         const validToken = verify(accessToken, process.env.SECRET_KEY)

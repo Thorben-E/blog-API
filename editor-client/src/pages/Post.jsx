@@ -49,17 +49,18 @@ const Post = () => {
   const updatePost = async () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
       method: "PUT",
-      body: JSON.stringify({ img: img, title: title, message: message, author: author }),
+      body: JSON.stringify({ img: img, title: title, message: message, author: author, token: localStorage.getItem('token') }),
       headers: {
         "Content-Type": 'application/json'
       }
     }).then(response => response.json())
-      .then(window.location.reload())
+      .then(data => console.log(data))
   } 
 
   const deletePost = async () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/posts/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      body: JSON.stringify({ token: localStorage.getItem('token') }),
     }).then(response => response.json())
       .then(data => console.log(data))
       .then(window.location.href = import.meta.env.VITE_EDITOR_CLIENT_URL)

@@ -34,6 +34,7 @@ exports.delete_comment = async (req, res) => {
             { _id: req.body.postid }, 
             { $pull: { comments: req.params.id }
         })
+        await res.json({ comment_deleted: true })
     } catch (err) {
         console.log(err)
     }

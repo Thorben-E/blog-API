@@ -24,11 +24,19 @@ const Comment = ({ commentId, postId, editor }) => {
   const deleteComment = async () => {
     fetch(`${import.meta.env.VITE_SERVER_URL}/api/comment/${commentId}`, {
       method: "DELETE",
-      body: JSON.stringify({ postid: postId }),
+      body: JSON.stringify({ postid: postId, token: localStorage.getItem('token') }),
       headers: {
         "Content-Type": 'application/json'
       }
-    }).then(window.location.reload())
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data)
+        if (data.auth) {
+          window.location.reload()
+        } else {
+          window.location.href = import.meta.env.VITE_EDITOR_CLIENT_URL
+        }
+      })
   }
   
   return (
